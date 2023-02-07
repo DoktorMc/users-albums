@@ -1,0 +1,25 @@
+.user-title {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.user-header {
+  display: flex;
+}
+
+.user-header div {
+  padding: 5px 10px;
+  border: 1px solid #000000;
+  width: 200px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.user-searcher {
+  padding: 5px 10px;
+  width: 200px;
+  border: 2px solid #000000;
+  margin-bottom: 20px;
+}

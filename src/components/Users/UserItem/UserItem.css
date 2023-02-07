@@ -1,0 +1,30 @@
+.item-group {
+  display: flex;
+  border: 1px solid #000000;
+  width:fit-content;
+  margin-bottom: 2px;
+  border-radius: 5px;
+}
+
+.item-group div {
+  padding: 5px 10px;
+  width: 200px;
+  border-right: 1px dotted #000000;
+}
+
+.item-group div:last-child {
+  border-right: 0px;
+}
+
+.item-group_delete {
+  padding: 5px 13px;
+  cursor: pointer;
+  transition: 0.5s;
+  border-radius: 1px;
+  display: inline-block;
+  width: 20px;
+}
+
+.item-group_delete:hover {
+  background: #ff0000;
+}
