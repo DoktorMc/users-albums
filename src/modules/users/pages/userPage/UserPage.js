@@ -1,5 +1,6 @@
-import UsersList from "../../components/Users/UserList/UsersList";
 
+
+import UsersList from '../../userComponents/UsersList/UsersList';
 import './UserPage.css';
 
 const UserPage = () => {
