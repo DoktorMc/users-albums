@@ -5,6 +5,7 @@ import { deleteUser } from "../../../../store/actions/userActions";
 import UserItem from "../UserItem/UserItem";
 
 const UsersListPage = ({ users, onDeleteItem }) => {
+  
   return (
     <div className="list-items">
       {users.map((item) => (

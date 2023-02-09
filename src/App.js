@@ -1,8 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { fetchUsers } from "./store/actions/userActions";
 import HomePage from "./modules/home/HomePage";
 import NotFoundPage from "./modules/about/notFound/NotFoundPage";
 import Navigation from "./modules/common/commonComponents/navigation/Navigation";

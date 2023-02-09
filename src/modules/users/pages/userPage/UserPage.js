@@ -1,6 +1,4 @@
-
-
-import UsersList from '../../userComponents/UsersList/UsersList';
+import UserList from '../../components/UsersList/UsersList'
 import './UserPage.css';
 
 const UserPage = () => {
@@ -12,7 +10,6 @@ const UserPage = () => {
           type="text"
           className="user-searcher"
           placeholder="Searcher"
-          // onChange={(e) => onSearchContact(e.target.value)}
         />
       </div>
       <div className="user-header">
@@ -21,8 +18,7 @@ const UserPage = () => {
         <div>Phone number</div>
         <div>E-mail</div>
       </div>
-
-      <UsersList/>
+    <UserList/>
     </>
   );
 };
