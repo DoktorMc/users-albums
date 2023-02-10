@@ -1,16 +1,21 @@
-import UserList from '../../components/UsersList/UsersList'
-import './UserPage.css';
+import React,{ useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchUsers } from "../../../../store/actions/userActions";
+import UserList from "../../components/usersList/UsersList";
+import "./UserPage.css";
 
 const UserPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  });
+
   return (
     <>
       <div className="user-title">USER PAGE</div>
       <div>
-        <input
-          type="text"
-          className="user-searcher"
-          placeholder="Searcher"
-        />
+        <input type="text" className="user-searcher" placeholder="Searcher" />
       </div>
       <div className="user-header">
         <div>Name</div>
@@ -18,7 +23,7 @@ const UserPage = () => {
         <div>Phone number</div>
         <div>E-mail</div>
       </div>
-    <UserList/>
+      <UserList />
     </>
   );
 };

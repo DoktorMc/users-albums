@@ -1,17 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { deleteUser } from "../../../../store/actions/userActions";
-
-import UserItem from "../UserItem/UserItem";
+import UserItem from "../userItem/UserItem";
 
 const UsersListPage = ({ users, onDeleteItem }) => {
+
+   const { pathname } = useLocation();
+   const navigate = useNavigate();
+
+   const onAddUser= () => {
+     navigate(`${pathname}/add`, { replace: true });
+   };
   
   return (
-    <div className="list-items">
+    <>
+      <div className="list-items">
       {users.map((item) => (
         <UserItem item={item} key={item.id} onDeleteItem={onDeleteItem} />
       ))}
-    </div>
+      </div>
+      <button onClick={onAddUser}>Add new user</button>
+    </>
+   
   );
 };
 

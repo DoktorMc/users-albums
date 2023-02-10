@@ -17,7 +17,6 @@ export const fetchUsers = () => (dispatch) => {
 
 export const getUserDetails = (id) => (dispatch) => {
   api.get(`users/${id}`).then((resp) => {
-    console.log('data details', resp.data);
     dispatch({
       type: ACTION_GET_USER_DETAILS,
       payload: resp.data,

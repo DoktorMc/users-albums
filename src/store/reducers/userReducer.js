@@ -12,7 +12,7 @@ const initialState = {
 const userReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ACTION_GET_USERS:
-      return { users: payload };
+      return { ...state, users: payload };
 
     case ACTION_DELETE_USER:
       return {
@@ -21,8 +21,7 @@ const userReducer = (state = initialState, { type, payload }) => {
       };
 
     case ACTION_GET_USER_DETAILS:
-      console.log("reducer detail - ", payload);
-      return { userDetail: payload };
+      return { ...state, userDetail: payload };
 
     default:
       return state;
