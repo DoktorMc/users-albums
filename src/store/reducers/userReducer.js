@@ -1,4 +1,5 @@
 import {
+  ACTION_ADD_USER,
   ACTION_DELETE_USER,
   ACTION_GET_USERS,
   ACTION_GET_USER_DETAILS,
@@ -22,6 +23,12 @@ const userReducer = (state = initialState, { type, payload }) => {
 
     case ACTION_GET_USER_DETAILS:
       return { ...state, userDetail: payload };
+
+    case ACTION_ADD_USER:
+      return {
+        ...state,
+        users: [...state.users, payload],
+      };
 
     default:
       return state;

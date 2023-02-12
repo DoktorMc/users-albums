@@ -10,7 +10,7 @@ const UsersListPage = ({ users, onDeleteItem }) => {
    const navigate = useNavigate();
 
    const onAddUser= () => {
-     navigate(`${pathname}/add`, { replace: true });
+     navigate(`${pathname}/add`);
    };
   
   return (

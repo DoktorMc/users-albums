@@ -7,7 +7,7 @@ const UserDetails = ({ userDetail }) => {
   const navigate = useNavigate()
  
   const onEditForm = () => {
-     navigate(`${pathname}/edit`, { replace: true })
+     navigate(`${pathname}/edit`)
   }
   return (
     <div>

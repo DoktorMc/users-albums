@@ -24,6 +24,15 @@ export const getUserDetails = (id) => (dispatch) => {
   });
 };
 
+export const addUser = (user) => (dispatch) => {
+  api.post('users', user).then((resp) => {
+    dispatch({
+      type: ACTION_ADD_USER,
+      payload: resp.data
+    })
+  })
+}
+
 export const deleteUser = (id) => (dispatch) => {
   api.delete(`users/${id}`);
   dispatch({

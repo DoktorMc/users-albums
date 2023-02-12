@@ -9,8 +9,8 @@ const UserModule = () => {
     <Routes>
       <Route path="/" element={<UserPage />} />
       <Route path="/:id" element={<UserDetailsPage />} />
-      <Route path="/add" element={<UserCRDPage />} />
-      <Route path="/:id/edit" element={<UserCRDPage />} />
+      <Route path="/add/" element={<UserCRDPage />} />
+      <Route path="/:id/edit/" element={<UserCRDPage />} />
       <Route path="*" element={<Navigate to="/notfound" replace={true} />} />
     </Routes>
   );
