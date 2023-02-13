@@ -6,6 +6,8 @@ export const ACTION_DELETE_USER = "ACTION_DELETE_USER";
 export const ACTION_GET_USERS = "ACTION_GET_USERS";
 export const ACTION_GET_USER_DETAILS = "ACTION_GET_USER_DETAILS";
 
+
+
 export const fetchUsers = () => (dispatch) => {
   api.get("users").then((resp) => {
     dispatch({
@@ -29,6 +31,17 @@ export const addUser = (user) => (dispatch) => {
     dispatch({
       type: ACTION_ADD_USER,
       payload: resp.data
+    })
+    
+  })
+}
+
+export const updateUser = (id, data) => (dispatch) => {
+  console.log('id action', id);
+  api.put(`users/${id}`, data).then((resp) => {
+    dispatch({
+      type: ACTION_EDIT_USER,
+      payload: {id: id, data:resp.data}
     })
   })
 }

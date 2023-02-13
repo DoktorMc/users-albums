@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deleteUser } from "../../../../store/actions/userActions";
-import UserItem from "../userItem/UserItem";
+import UserItem from "../UserItem/UserItem";
 
 const UsersListPage = ({ users, onDeleteItem }) => {
 

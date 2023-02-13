@@ -1,6 +1,6 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const useCustomNavigate = (navigateTo = "/") => {
+const useCustomNavigate = (navigateTo = '/') => {
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);

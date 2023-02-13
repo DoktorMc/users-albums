@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { setProperty } from "../../../../helper/setPropertyToNestedObj";
 import { withRouter } from "../../../../hoc/withRouter";
 import useCustomNavigate from "../../../../hooks/useCastomNavigate";
-import { addUser } from "../../../../store/actions/userActions";
+import { addUser, updateUser } from "../../../../store/actions/userActions";
 
-const setProperty = (obj, path, value) => {
-  const [head, ...rest] = path.split(".");
-
-  return {
-    ...obj,
-    [head]: rest.length ? setProperty(obj[head], rest.join("."), value) : value,
-  };
-};
-
-export const UserAddEditForm = ({ onAddUser, routerInfo }) => {
+export const UserAddEditForm = ({ onAddUser, onUpdeteUser, routerInfo }) => {
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -25,6 +17,9 @@ export const UserAddEditForm = ({ onAddUser, routerInfo }) => {
       city: "",
     },
     website: "",
+    company: {
+      name: "",
+    },
   });
 
   const [nameError, setNameError] = useState(" ");
@@ -64,12 +59,8 @@ export const UserAddEditForm = ({ onAddUser, routerInfo }) => {
     return errors[name]?.(empty);
   };
 
-  console.log("user", user);
-
   const onInputChange = (e) => {
     const { value, name } = e.target;
-    setUser({ ...user, [name]: value });
-
     setUser(setProperty(user, name, value));
     errorText(name, value);
   };
@@ -77,7 +68,16 @@ export const UserAddEditForm = ({ onAddUser, routerInfo }) => {
   const onClickAdd = (e) => {
     e.preventDefault();
     onAddUser(user);
+    navigate.goBack();
   };
+
+  const onClickUpdate = (e) => {
+    console.log(" form id update", routerInfo.params.id);
+    console.log('user form', user);
+     e.preventDefault();
+     onUpdeteUser(routerInfo.params.id, user);
+    //  navigate.goBack();
+   };
 
   return (
     <>
@@ -159,7 +159,7 @@ export const UserAddEditForm = ({ onAddUser, routerInfo }) => {
             placeholder="Company name"
             value={user.company?.name}
             onChange={onInputChange}
-            name="company.street"
+            name="company.name"
           />
         </div>
       </form>
@@ -168,8 +168,7 @@ export const UserAddEditForm = ({ onAddUser, routerInfo }) => {
           <>
             <button
               className="form-button_save"
-              // onClick={onClick}
-              disabled={!formValid}
+              onClick={onClickUpdate}
             >
               Edit
             </button>
@@ -188,7 +187,7 @@ export const UserAddEditForm = ({ onAddUser, routerInfo }) => {
             </button>
             <button
               className="form-button_cancel"
-              onClick={() => navigate.goBack()}
+              onClick={navigate.goBack}
             >
               Back to users
             </button>
@@ -203,6 +202,7 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   onAddUser: addUser,
+  onUpdeteUser: updateUser,
 };
 
 export default connect(
