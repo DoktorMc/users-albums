@@ -36,8 +36,7 @@ const userReducer = (state = initialState, { type, payload }) => {
        console.log("reducer edit data", payload.data);
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.id === payload.id ? { user: payload.data } : user
+        users: state.users.map((user) => user.id === payload.id ? {...user, ...payload.data} : user 
         ),
       };
 

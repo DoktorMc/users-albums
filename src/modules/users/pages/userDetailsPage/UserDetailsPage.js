@@ -7,11 +7,11 @@ import UserDetails from "../../components/userDetails/UserDetails";
 
 const UserDetailsPage = () => {
   const dispatch = useDispatch();
-  const params = useParams();
-
-  useEffect(() => {
-    dispatch(getUserDetails(params.id));
-  }, [params.id]);
+ const params = useParams();
+  const { id } = params;
+  useEffect(() => { 
+    dispatch(getUserDetails(id));
+  }, [id]);
 
   return <UserDetails />;
 };

@@ -1,11 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setProperty } from "../../../../helper/setPropertyToNestedObj";
 import { withRouter } from "../../../../hoc/withRouter";
 import useCustomNavigate from "../../../../hooks/useCastomNavigate";
 import { addUser, updateUser } from "../../../../store/actions/userActions";
 
-export const UserAddEditForm = ({ onAddUser, onUpdeteUser, routerInfo }) => {
+function extend(obj1, obj2) {
+  function copyObject(obj) {
+    const result = {};
+    for (let key in obj) {
+      if (typeof obj[key] != "object") {
+        result[key] = obj[key];
+      } else {
+        result[key] = copyObject(obj[key]);
+      }
+    }
+    return result;
+  }
+  for (let key in obj2) {
+    if (typeof obj2[key] != "object") {
+      obj1[key] = obj2[key];
+    } else {
+      obj1[key] = copyObject(obj2[key]);
+    }
+  }
+  return obj1;
+}
+
+export const UserAddEditForm = ({
+  userForUpdate,
+  onAddUser,
+  onUpdeteUser,
+  routerInfo,
+}) => {
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -29,8 +57,17 @@ export const UserAddEditForm = ({ onAddUser, onUpdeteUser, routerInfo }) => {
   const [formValid, setFormValid] = useState(false);
 
   const navigate = useCustomNavigate();
+  const nav = useNavigate();
+
+  console.log("user for updatung data - ", userForUpdate);
 
   useEffect(() => {
+    //     if (routerInfo.params.id) {
+    //    console.log("THIS EDIT FORM");
+
+    //    console.log("user after", user);
+    //  }
+    setUser(extend(user, userForUpdate));
     if (nameError || userNameError || phoneNumberError || emailError) {
       setFormValid(false);
     } else {
@@ -68,16 +105,16 @@ export const UserAddEditForm = ({ onAddUser, onUpdeteUser, routerInfo }) => {
   const onClickAdd = (e) => {
     e.preventDefault();
     onAddUser(user);
-    navigate.goBack();
+    nav("/users");
   };
 
   const onClickUpdate = (e) => {
-    console.log(" form id update", routerInfo.params.id);
-    console.log('user form', user);
-     e.preventDefault();
-     onUpdeteUser(routerInfo.params.id, user);
-    //  navigate.goBack();
-   };
+    console.log(" form id update");
+    console.log("user form", user);
+    e.preventDefault();
+    onUpdeteUser(routerInfo.params.id, user);
+    nav("/users");
+  };
 
   return (
     <>
@@ -166,10 +203,7 @@ export const UserAddEditForm = ({ onAddUser, onUpdeteUser, routerInfo }) => {
       <div className="form-button">
         {routerInfo.params.id ? (
           <>
-            <button
-              className="form-button_save"
-              onClick={onClickUpdate}
-            >
+            <button className="form-button_save" onClick={onClickUpdate}>
               Edit
             </button>
             <button className="form-button_cancel" onClick={navigate.goBack}>
@@ -185,10 +219,7 @@ export const UserAddEditForm = ({ onAddUser, onUpdeteUser, routerInfo }) => {
             >
               Add
             </button>
-            <button
-              className="form-button_cancel"
-              onClick={navigate.goBack}
-            >
+            <button className="form-button_cancel" onClick={navigate.goBack}>
               Back to users
             </button>
           </>
@@ -198,7 +229,13 @@ export const UserAddEditForm = ({ onAddUser, onUpdeteUser, routerInfo }) => {
   );
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({ users }) => {
+  const item = users.userDetail;
+
+  return {
+    userForUpdate: item,
+  };
+};
 
 const mapDispatchToProps = {
   onAddUser: addUser,
