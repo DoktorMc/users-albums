@@ -7,6 +7,9 @@ const Navigation = () => {
       <li>
         <NavLink to={"/users"}>Users</NavLink>
       </li>
+      <li>
+        <NavLink to={"/albums"}>Albums</NavLink>
+      </li>
     </ul>
   );
 };

@@ -4,25 +4,23 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { deleteUser } from "../../../../store/actions/userActions";
 import UserItem from "../UserItem/UserItem";
 
-const UsersListPage = ({ users, onDeleteItem }) => {
+const UsersList = ({ users, onDeleteItem }) => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-   const { pathname } = useLocation();
-   const navigate = useNavigate();
+  const onAddUser = () => {
+    navigate(`${pathname}/add`);
+  };
 
-   const onAddUser= () => {
-     navigate(`${pathname}/add`);
-   };
-  
   return (
     <>
       <div className="list-items">
-      {users.map((item) => (
-        <UserItem item={item} key={item.id} onDeleteItem={onDeleteItem} />
-      ))}
+        {users.map((item) => (
+          <UserItem item={item} key={item.id} onDeleteItem={onDeleteItem} />
+        ))}
       </div>
       <button onClick={onAddUser}>Add new user</button>
     </>
-   
   );
 };
 
@@ -34,7 +32,7 @@ function mapStateToProps({ users }) {
 }
 
 const mapDispatchToProps = {
-  onDeleteItem: deleteUser
-}
+  onDeleteItem: deleteUser,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersList);

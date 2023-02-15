@@ -7,9 +7,9 @@ import UserDetails from "../../components/userDetails/UserDetails";
 
 const UserDetailsPage = () => {
   const dispatch = useDispatch();
- const params = useParams();
+  const params = useParams();
   const { id } = params;
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(getUserDetails(id));
   }, [id]);
 
