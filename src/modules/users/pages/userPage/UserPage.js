@@ -1,7 +1,7 @@
 import React,{ useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "../../../../store/actions/userActions";
-import UserList from '../../components/UsersList/UsersList'
+import UsersList from "../../components/usersList/UsersList";
 import "./UserPage.css";
 
 const UserPage = () => {
@@ -23,7 +23,7 @@ const UserPage = () => {
         <div>Phone number</div>
         <div>E-mail</div>
       </div>
-      <UserList/>
+     <UsersList/>
     </>
   );
 };
