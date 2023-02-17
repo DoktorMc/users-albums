@@ -1,21 +1,29 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./UserItem.css";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 
-const UserItem = ({ item, onDeleteItem }) => {
+const UserItem = ({ item }) => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-
- 
-const {pathname} = useLocation()
+  const onLinkTo = (e) => {
+    console.log(e.target);
+    navigate(`${pathname}/${item.id}`);
+  };
   return (
-    <div className="item-group">
-      <Link to={`${pathname}/${item.id}`} className="item-group_link">
-        <div>{item.name}</div>
-        <div>{item.username}</div>
-        <div>{item.phone}</div>
-        <div>{item.email}</div>
-      </Link>
-    </div>
+    <>
+      <TableRow
+        sx={{ "& > *": { borderBottom: "unset", cursor: "pointer" } }}
+        onClick={onLinkTo}
+      >
+        <TableCell align="center">{item.name}</TableCell>
+        <TableCell align="center">{item.username}</TableCell>
+        <TableCell align="center">{item.phone}</TableCell>
+        <TableCell align="center">{item.email}</TableCell>
+      </TableRow>
+    </>
   );
 };
 export default UserItem;

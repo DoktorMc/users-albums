@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import { AppBar, Toolbar, Typography, Button, Link } from "@mui/material";
+import { AppBar, Toolbar, Button, Link } from "@mui/material";
 import Container from "@mui/material/Container";
 import HiveSharpIcon from "@mui/icons-material/HiveSharp";
 import { Box } from "@mui/system";
@@ -9,7 +9,7 @@ import { Box } from "@mui/system";
 const Navigation = () => {
   return (
     <>
-      <AppBar position="static" sx={{ mb: 5 }}>
+      <AppBar position="static" sx={{ mb: 3 }}>
         <Container maxWidth="xl">
           <Toolbar>
             <NavLink to={"/"}>

@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import api from "../api";
 
 export const ACTION_GET_ALBUMS = "ACTION_GET_ALBUMS";
