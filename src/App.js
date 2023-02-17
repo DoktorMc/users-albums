@@ -10,8 +10,8 @@ import NotFoundPage from "./modules/about/notFound/NotFoundPage";
 import Navigation from "./modules/common/commonComponents/navigation/Navigation";
 import UserModule from "./modules/users/pages/UserModule";
 import AlbumsModule from "./modules/albums/pages/AlbumModules";
-
 import "./App.css";
+
 
 function App() {
   return (

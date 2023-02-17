@@ -9,7 +9,6 @@ const AlbumPage = () => {
   useEffect(() => {
     dispatch(getAlbums());
   });
-
   return (
     <div>
       <AlbumList />

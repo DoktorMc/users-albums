@@ -3,10 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./UserItem.css";
 
 const UserItem = ({ item, onDeleteItem }) => {
-  const onClickDelete = (e) => {
-    e.stopPropagation();
-    onDeleteItem(item.id);
-  };
+
 
  
 const {pathname} = useLocation()
@@ -18,9 +15,6 @@ const {pathname} = useLocation()
         <div>{item.phone}</div>
         <div>{item.email}</div>
       </Link>
-      <span className="item-group_delete" onClick={onClickDelete}>
-        X
-      </span>
     </div>
   );
 };
