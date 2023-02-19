@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "../../../../store/actions/userActions";
 import UsersList from "../../components/usersList/UsersList";
-import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
+import { Container, TextField } from "@mui/material";
 import "./UserPage.css";
 
 const UserPage = () => {

@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Box, TextField , Button} from "@mui/material";
+
+
 import { useNavigate } from "react-router-dom";
 import { setProperty } from "../../../../helper/setPropertyToNestedObj";
 import { withRouter } from "../../../../hoc/withRouter";
 import useCustomNavigate from "../../../../hooks/useCastomNavigate";
 import { addUser, updateUser } from "../../../../store/actions/userActions";
 
-function extend(obj1, obj2) {
-  function copyObject(obj) {
-    const result = {};
-    for (let key in obj) {
-      if (typeof obj[key] != "object") {
-        result[key] = obj[key];
-      } else {
-        result[key] = copyObject(obj[key]);
-      }
-    }
-    return result;
-  }
-  for (let key in obj2) {
-    if (typeof obj2[key] != "object") {
-      obj1[key] = obj2[key];
-    } else {
-      obj1[key] = copyObject(obj2[key]);
-    }
-  }
-  return obj1;
-}
+// function extend(obj1, obj2) {
+//   function copyObject(obj) {
+//     const result = {};
+//     for (let key in obj) {
+//       if (typeof obj[key] != "object") {
+//         result[key] = obj[key];
+//       } else {
+//         result[key] = copyObject(obj[key]);
+//       }
+//     }
+//     return result;
+//   }
+//   for (let key in obj2) {
+//     if (typeof obj2[key] != "object") {
+//       obj1[key] = obj2[key];
+//     } else {
+//       obj1[key] = copyObject(obj2[key]);
+//     }
+//   }
+//   return obj1;
+// }
 
 export const UserAddEditForm = ({
   userForUpdate,
@@ -50,16 +53,16 @@ export const UserAddEditForm = ({
     },
   });
 
-  const [nameError, setNameError] = useState(" ");
-  const [userNameError, setUserNameError] = useState(" ");
-  const [phoneNumberError, setPhoneNumberError] = useState(" ");
-  const [emailError, setEmailError] = useState(" ");
+  const [nameError, setNameError] = useState(true);
+  const [userNameError, setUserNameError] = useState(true);
+  const [phoneNumberError, setPhoneNumberError] = useState(true);
+  const [emailError, setEmailError] = useState(true);
   const [formValid, setFormValid] = useState(false);
 
   const navigate = useCustomNavigate();
   const nav = useNavigate();
 
-  console.log("user for updatung data - ", userForUpdate);
+  // console.log("user for updatung data - ", userForUpdate);
 
   useEffect(() => {
     //     if (routerInfo.params.id) {
@@ -67,30 +70,32 @@ export const UserAddEditForm = ({
 
     //    console.log("user after", user);
     //  }
-    setUser(extend(user, userForUpdate));
+    console.log("user eror imput", nameError);
+    // setUser(extend(user, userForUpdate));
     if (nameError || userNameError || phoneNumberError || emailError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
+  console.log("form valid", formValid);
   }, [nameError, userNameError, phoneNumberError, emailError, formValid]);
 
   const errorText = (name, empty) => {
     const errors = {
       name: (empty) =>
-        !empty ? setNameError("the name is not written!") : setNameError(""),
+        empty ? setNameError(false) : setNameError(true),
       username: (empty) =>
-        !empty
-          ? setUserNameError("the surname is not written!")
-          : setUserNameError(""),
+        empty
+          ? setUserNameError(false)
+          : setUserNameError(true),
       phone: (empty) =>
-        !empty
-          ? setPhoneNumberError("the phone number is not written!")
-          : setPhoneNumberError(""),
+        empty
+          ? setPhoneNumberError(false)
+          : setPhoneNumberError(true),
       email: (empty) =>
-        !empty
-          ? setEmailError("the E-mail is not written!")
-          : setEmailError(""),
+        empty
+          ? setEmailError(false)
+          : setEmailError(true),
     };
 
     return errors[name]?.(empty);
@@ -118,51 +123,68 @@ export const UserAddEditForm = ({
 
   return (
     <>
-      <form className="form">
-        <div className="form-input_general">
+      <Box
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "25ch" },
+        }}
+      >
+        <Box component="div" noValidate autoComplete="off">
           <h3>General information</h3>
-          {nameError && <div className="form-error">{nameError}</div>}
-          <input
-            type="text"
+          <TextField
+            error={nameError}
+            id="outlined-controlled"
             placeholder="Name"
+            label="Name"
+           
             value={user.name}
             onChange={onInputChange}
             name="name"
+            helperText={nameError ? "the name is not written!" : ""}
           />
-          {userNameError && <div className="form-error">{userNameError}</div>}
-          <input
-            type="text"
-            placeholder="Surname"
+
+          <TextField
+            error={userNameError}
+            id="outlined-controlled"
+            placeholder="User name"
+            label="User name"
             value={user.username}
             onChange={onInputChange}
             name="username"
+            helperText={userNameError ? "the user name is not written!" : ""}
           />
-          {phoneNumberError && (
-            <div className="form-error">{phoneNumberError}</div>
-          )}
-          <input
-            type="text"
-            placeholder="Phone number"
+
+          <TextField
+            error={phoneNumberError}
+            id="outlined-controlled"
+            placeholder="Phone"
+            label="Phone"
             value={user.phone}
             onChange={onInputChange}
             name="phone"
+            helperText={phoneNumberError ? "the phone is not written!" : ""}
           />
-          {emailError && <div className="form-error">{emailError}</div>}
-          <input
-            type="text"
+
+          <TextField
+            error={emailError}
+            id="outlined-controlled"
             placeholder="E-mail"
+            label="E-mail"
             value={user.email}
             onChange={onInputChange}
             name="email"
+            helperText={emailError ? "the e-mail is not written!" : ""}
           />
-          <input
-            type="text"
+
+          <TextField
+            id="outlined-controlled"
             placeholder="Website"
+            label="Website"
             value={user.website}
             onChange={onInputChange}
             name="website"
           />
-        </div>
+        </Box>
         <div className="form-input_address">
           <h3>Address information</h3>
 
@@ -199,13 +221,18 @@ export const UserAddEditForm = ({
             name="company.name"
           />
         </div>
-      </form>
+      </Box>
       <div className="form-button">
         {routerInfo.params.id ? (
           <>
-            <button className="form-button_save" onClick={onClickUpdate}>
+            <Button
+              variant="contained"
+              onClick={onClickUpdate}
+              disabled={!formValid}
+            >
               Edit
-            </button>
+            </Button>
+
             <button className="form-button_cancel" onClick={navigate.goBack}>
               Back to details
             </button>
@@ -215,7 +242,7 @@ export const UserAddEditForm = ({
             <button
               className="form-button_save"
               onClick={onClickAdd}
-              disabled={!formValid}
+              disabled={formValid}
             >
               Add
             </button>
