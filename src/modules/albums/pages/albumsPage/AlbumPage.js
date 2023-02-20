@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAlbums } from "../../../../store/actions/albumActions";
 import AlbumList from "../../components/albumList/AlbumList";
+import { Container } from "@mui/material";
 
 const AlbumPage = () => {
   const dispatch = useDispatch();
@@ -10,9 +11,9 @@ const AlbumPage = () => {
     dispatch(getAlbums());
   });
   return (
-    <div>
+    <Container maxWidth="xl">
       <AlbumList />
-    </div>
+    </Container>
   );
 };
 

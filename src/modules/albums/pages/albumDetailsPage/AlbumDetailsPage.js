@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { getAlbumsDetails } from "../../../../store/actions/albumActions";
 import AlbumDetails from "../../components/albumsDetails/AlbumDetails";
 
+import { Container} from "@mui/material";
+
 export const AlbumDetailsPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -11,9 +13,11 @@ export const AlbumDetailsPage = () => {
   useEffect(() => {
     dispatch(getAlbumsDetails(id));
   }, [id]);
-  return <AlbumDetails/>;
+  return (
+    <Container maxWidth="xl">
+      <AlbumDetails />
+    </Container>
+  );
 };
-
-
 
 export default AlbumDetailsPage;

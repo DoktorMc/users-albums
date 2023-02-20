@@ -1,15 +1,34 @@
+import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
-import AlbumItem from "../albumItem/AlbumItem";
+import FolderIcon from "@mui/icons-material/Folder";
+import { Link, useLocation } from "react-router-dom";
 
 export const AlbumList = ({ albums }) => {
+   const { pathname } = useLocation(); 
   return (
     <>
-      <div className="list-items">
+      <Box
+        component="div"
+        sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+      >
         {albums.map((item) => (
-          <AlbumItem item={item} key={item.id} />
+          <List
+            item={item}
+            key={item.id}
+            sx={{ width: 350, border: 1, borderRadius: "16px", m: 1 }}
+          >
+            <ListItem>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <Link to={`${pathname}/${item.id}`}>
+                <span>{item.title}</span>
+              </Link>
+            </ListItem>
+          </List>
         ))}
-      </div>
+      </Box>
     </>
   );
 };

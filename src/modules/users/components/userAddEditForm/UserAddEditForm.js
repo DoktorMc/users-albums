@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Box, TextField , Button} from "@mui/material";
-
+import { Box, TextField, Button } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
 import { useNavigate } from "react-router-dom";
 import { setProperty } from "../../../../helper/setPropertyToNestedObj";
@@ -77,25 +77,17 @@ export const UserAddEditForm = ({
     } else {
       setFormValid(true);
     }
-  console.log("form valid", formValid);
+    console.log("form valid", formValid);
   }, [nameError, userNameError, phoneNumberError, emailError, formValid]);
 
   const errorText = (name, empty) => {
     const errors = {
-      name: (empty) =>
-        empty ? setNameError(false) : setNameError(true),
+      name: (empty) => (empty ? setNameError(false) : setNameError(true)),
       username: (empty) =>
-        empty
-          ? setUserNameError(false)
-          : setUserNameError(true),
+        empty ? setUserNameError(false) : setUserNameError(true),
       phone: (empty) =>
-        empty
-          ? setPhoneNumberError(false)
-          : setPhoneNumberError(true),
-      email: (empty) =>
-        empty
-          ? setEmailError(false)
-          : setEmailError(true),
+        empty ? setPhoneNumberError(false) : setPhoneNumberError(true),
+      email: (empty) => (empty ? setEmailError(false) : setEmailError(true)),
     };
 
     return errors[name]?.(empty);
@@ -134,123 +126,159 @@ export const UserAddEditForm = ({
           <TextField
             error={nameError}
             id="outlined-controlled"
+            size="small"
             placeholder="Name"
             label="Name"
-           
             value={user.name}
             onChange={onInputChange}
             name="name"
             helperText={nameError ? "the name is not written!" : ""}
+            sx={{
+              mb: 2,
+            }}
           />
 
           <TextField
             error={userNameError}
             id="outlined-controlled"
+            size="small"
             placeholder="User name"
             label="User name"
             value={user.username}
             onChange={onInputChange}
             name="username"
             helperText={userNameError ? "the user name is not written!" : ""}
+            sx={{
+              mb: 2,
+            }}
           />
 
           <TextField
             error={phoneNumberError}
             id="outlined-controlled"
+            size="small"
             placeholder="Phone"
             label="Phone"
             value={user.phone}
             onChange={onInputChange}
             name="phone"
             helperText={phoneNumberError ? "the phone is not written!" : ""}
+            sx={{
+              mb: 2,
+            }}
           />
 
           <TextField
             error={emailError}
             id="outlined-controlled"
+            size="small"
             placeholder="E-mail"
             label="E-mail"
             value={user.email}
             onChange={onInputChange}
             name="email"
             helperText={emailError ? "the e-mail is not written!" : ""}
+            sx={{
+              mb: 2,
+            }}
           />
 
           <TextField
             id="outlined-controlled"
+            size="small"
             placeholder="Website"
             label="Website"
             value={user.website}
             onChange={onInputChange}
             name="website"
+            sx={{
+              mb: 2,
+            }}
           />
         </Box>
-        <div className="form-input_address">
+        <Box component="div">
           <h3>Address information</h3>
 
-          <input
-            type="text"
+          <TextField
+            id="outlined-controlled"
+            size="small"
             placeholder="Street"
+            label="Street"
             value={user.address?.street}
             onChange={onInputChange}
             name="address.street"
+            sx={{
+              mb: 2,
+            }}
           />
-          <input
-            type="text"
+          <TextField
+            id="outlined-controlled"
+            size="small"
             placeholder="Suite"
+            label="Suite"
             value={user.address?.suite}
             onChange={onInputChange}
             name="address.suite"
+            sx={{
+              mb: 2,
+            }}
           />
-          <input
-            type="text"
+          <TextField
+            id="outlined-controlled"
+            size="small"
             placeholder="City"
+            label="City"
             value={user.address?.city}
             onChange={onInputChange}
             name="address.city"
           />
-        </div>
-        <div className="form-input_company">
+        </Box>
+        <Box component="div">
           <h3>Company information</h3>
 
-          <input
-            type="text"
+          <TextField
+            id="outlined-controlled"
+            size="small"
             placeholder="Company name"
+            label="Company name"
             value={user.company?.name}
             onChange={onInputChange}
             name="company.name"
+            sx={{
+              mb: 2,
+            }}
           />
-        </div>
+        </Box>
       </Box>
       <div className="form-button">
         {routerInfo.params.id ? (
-          <>
-            <Button
-              variant="contained"
-              onClick={onClickUpdate}
-              disabled={!formValid}
-            >
-              Edit
-            </Button>
-
-            <button className="form-button_cancel" onClick={navigate.goBack}>
-              Back to details
-            </button>
-          </>
+          <Button
+            variant="contained"
+            onClick={onClickUpdate}
+            disabled={!formValid}
+            endIcon={<SendIcon />}
+          >
+            Edit
+          </Button>
         ) : (
-          <>
-            <button
-              className="form-button_save"
-              onClick={onClickAdd}
-              disabled={formValid}
-            >
-              Add
-            </button>
-            <button className="form-button_cancel" onClick={navigate.goBack}>
-              Back to users
-            </button>
-          </>
+          <Button
+            variant="contained"
+            onClick={onClickAdd}
+            disabled={!formValid}
+            endIcon={<SendIcon />}
+          >
+            Add
+          </Button>
         )}
+        <Button
+          variant="contained"
+          onClick={navigate.goBack}
+          sx={{
+            ml: 2,
+          }}
+        >
+          Go Back
+        </Button>
       </div>
     </>
   );
