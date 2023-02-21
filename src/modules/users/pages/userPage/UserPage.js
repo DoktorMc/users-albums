@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { fetchUsers } from "../../../../store/actions/userActions";
 import UsersList from "../../components/usersList/UsersList";
 import { Container, TextField } from "@mui/material";
 import "./UserPage.css";
+import { searchContact } from "../../../../store/actions/searchAction";
 
-const UserPage = () => {
+const UserPage = ({ onSearchContact }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const UserPage = () => {
             label="Search field"
             type="search"
             size="small"
+            onChange={(e) => onSearchContact(e.target.value)}
             sx={{ mb: 2, width: "40ch" }}
           />
         </div>
@@ -29,4 +31,8 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+const mapDispatchToProps = {
+  onSearchContact: searchContact 
+};
+
+export default  connect(null, mapDispatchToProps)  (UserPage);

@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Box, List, ListItem, ListItemIcon } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
 import FolderIcon from "@mui/icons-material/Folder";

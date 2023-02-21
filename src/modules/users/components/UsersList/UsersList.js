@@ -67,8 +67,12 @@ const UsersList = ({ users }) => {
   );
 };
 
-function mapStateToProps({ users }) {
-  const items = users.users;
+function mapStateToProps({ users, search }) {
+ let items = users.users;
+ if (search.length !== 0) {
+   let searchText = search.toLowerCase();
+   items = items.filter((el) => ~el.name.toLowerCase().indexOf(searchText));
+ }
   return {
     users: items,
   };

@@ -11,11 +11,18 @@ import Navigation from "./modules/common/commonComponents/navigation/Navigation"
 import UserModule from "./modules/users/pages/UserModule";
 import AlbumsModule from "./modules/albums/pages/AlbumModules";
 import "./App.css";
+import { Box } from "@mui/material";
 
 
 function App() {
   return (
-    <div className="App">
+    <Box
+      className="App"
+      sx={{
+        minHeight:'100vh',
+        backgroundColor: "primary.paper",
+      }}
+    >
       <Router>
         <Navigation />
         <Routes>
@@ -29,7 +36,7 @@ function App() {
           />
         </Routes>
       </Router>
-    </div>
+    </Box>
   );
 }
 

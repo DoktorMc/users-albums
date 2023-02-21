@@ -9,7 +9,7 @@ import { Box } from "@mui/system";
 const Navigation = () => {
   return (
     <>
-      <AppBar position="static" sx={{ mb: 1 }}>
+      <AppBar position="static" sx={{ mb: 2 }}>
         <Container maxWidth="xl">
           <Toolbar>
             <NavLink to={"/"}>
