@@ -9,94 +9,38 @@ import { withRouter } from "../../../../hoc/withRouter";
 import useCustomNavigate from "../../../../hooks/useCastomNavigate";
 import { addUser, updateUser } from "../../../../store/actions/userActions";
 
-// function extend(obj1, obj2) {
-//   function copyObject(obj) {
-//     const result = {};
-//     for (let key in obj) {
-//       if (typeof obj[key] != "object") {
-//         result[key] = obj[key];
-//       } else {
-//         result[key] = copyObject(obj[key]);
-//       }
-//     }
-//     return result;
-//   }
-//   for (let key in obj2) {
-//     if (typeof obj2[key] != "object") {
-//       obj1[key] = obj2[key];
-//     } else {
-//       obj1[key] = copyObject(obj2[key]);
-//     }
-//   }
-//   return obj1;
-// }
-
 export const UserAddEditForm = ({
   userForUpdate,
   onAddUser,
   onUpdeteUser,
   routerInfo,
 }) => {
-  const [user, setUser] = useState({
-    name: "",
-    username: "",
-    phone: "",
-    email: "",
-    address: {
-      street: "",
-      suite: "",
-      city: "",
-    },
-    website: "",
-    company: {
-      name: "",
-    },
-  });
-
-  const [nameError, setNameError] = useState(true);
-  const [userNameError, setUserNameError] = useState(true);
-  const [phoneNumberError, setPhoneNumberError] = useState(true);
-  const [emailError, setEmailError] = useState(true);
-  const [formValid, setFormValid] = useState(false);
+  const [user, setUser] = useState(
+    routerInfo.params.id
+      ? userForUpdate
+      : {
+          name: "",
+          username: "",
+          phone: "",
+          email: "",
+          address: {
+            street: "",
+            suite: "",
+            city: "",
+          },
+          website: "",
+          company: {
+            name: "",
+          },
+        }
+  );
 
   const navigate = useCustomNavigate();
   const nav = useNavigate();
 
-  // console.log("user for updatung data - ", userForUpdate);
-
-  useEffect(() => {
-    //     if (routerInfo.params.id) {
-    //    console.log("THIS EDIT FORM");
-
-    //    console.log("user after", user);
-    //  }
-    console.log("user eror imput", nameError);
-    // setUser(extend(user, userForUpdate));
-    if (nameError || userNameError || phoneNumberError || emailError) {
-      setFormValid(false);
-    } else {
-      setFormValid(true);
-    }
-    console.log("form valid", formValid);
-  }, [nameError, userNameError, phoneNumberError, emailError, formValid]);
-
-  const errorText = (name, empty) => {
-    const errors = {
-      name: (empty) => (empty ? setNameError(false) : setNameError(true)),
-      username: (empty) =>
-        empty ? setUserNameError(false) : setUserNameError(true),
-      phone: (empty) =>
-        empty ? setPhoneNumberError(false) : setPhoneNumberError(true),
-      email: (empty) => (empty ? setEmailError(false) : setEmailError(true)),
-    };
-
-    return errors[name]?.(empty);
-  };
-
   const onInputChange = (e) => {
     const { value, name } = e.target;
     setUser(setProperty(user, name, value));
-    errorText(name, value);
   };
 
   const onClickAdd = (e) => {
@@ -124,7 +68,6 @@ export const UserAddEditForm = ({
         <Box component="div" noValidate autoComplete="off">
           <h3>General information</h3>
           <TextField
-            error={nameError}
             id="outlined-controlled"
             size="small"
             placeholder="Name"
@@ -132,14 +75,12 @@ export const UserAddEditForm = ({
             value={user.name}
             onChange={onInputChange}
             name="name"
-            helperText={nameError ? "the name is not written!" : ""}
             sx={{
               mb: 2,
             }}
           />
 
           <TextField
-            error={userNameError}
             id="outlined-controlled"
             size="small"
             placeholder="User name"
@@ -147,14 +88,12 @@ export const UserAddEditForm = ({
             value={user.username}
             onChange={onInputChange}
             name="username"
-            helperText={userNameError ? "the user name is not written!" : ""}
             sx={{
               mb: 2,
             }}
           />
 
           <TextField
-            error={phoneNumberError}
             id="outlined-controlled"
             size="small"
             placeholder="Phone"
@@ -162,14 +101,12 @@ export const UserAddEditForm = ({
             value={user.phone}
             onChange={onInputChange}
             name="phone"
-            helperText={phoneNumberError ? "the phone is not written!" : ""}
             sx={{
               mb: 2,
             }}
           />
 
           <TextField
-            error={emailError}
             id="outlined-controlled"
             size="small"
             placeholder="E-mail"
@@ -177,7 +114,6 @@ export const UserAddEditForm = ({
             value={user.email}
             onChange={onInputChange}
             name="email"
-            helperText={emailError ? "the e-mail is not written!" : ""}
             sx={{
               mb: 2,
             }}
@@ -255,7 +191,6 @@ export const UserAddEditForm = ({
           <Button
             variant="contained"
             onClick={onClickUpdate}
-            disabled={!formValid}
             endIcon={<SendIcon />}
           >
             Edit
@@ -264,7 +199,6 @@ export const UserAddEditForm = ({
           <Button
             variant="contained"
             onClick={onClickAdd}
-            disabled={!formValid}
             endIcon={<SendIcon />}
           >
             Add
@@ -286,7 +220,6 @@ export const UserAddEditForm = ({
 
 const mapStateToProps = ({ users }) => {
   const item = users.userDetail;
-
   return {
     userForUpdate: item,
   };

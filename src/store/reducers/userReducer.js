@@ -32,8 +32,6 @@ const userReducer = (state = initialState, { type, payload }) => {
       };
 
     case ACTION_EDIT_USER:
-      console.log('reducer edit id', payload.id);
-       console.log("reducer edit data", payload.data);
       return {
         ...state,
         users: state.users.map((user) => user.id === payload.id ? {...user, ...payload.data} : user 

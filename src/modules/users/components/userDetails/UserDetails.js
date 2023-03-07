@@ -17,7 +17,6 @@ import {
 const UserDetails = ({ userDetail, userAlbums, getUserAlbums }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  console.log("USER Detail", userDetail);
   useEffect(() => {
     getUserAlbums(userDetail.id);
   }, [userDetail.id]);
