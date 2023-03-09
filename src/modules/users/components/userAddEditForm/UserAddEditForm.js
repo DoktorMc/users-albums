@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { withRouter } from "../../../../hoc/withRouter";
 import useCustomNavigate from "../../../../hooks/useCastomNavigate";
 import { addUser, updateUser } from "../../../../store/actions/userActions";
-import { Formik, Form} from "formik";
+import { Formik, Form, Field} from "formik";
 import userFormSchema from "../../../../helper/validation/userFormSchema";
 
 export const UserAddEditForm = ({
@@ -61,14 +61,13 @@ export const UserAddEditForm = ({
             >
               <Box component="div" noValidate autoComplete="off">
                 <h3>General information</h3>
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="Name"
                   label="Name"
                   name="name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
                   error={formik.touched.name && Boolean(formik.errors.name)}
                   helperText={formik.touched.name && formik.errors.name}
                   sx={{
@@ -76,40 +75,43 @@ export const UserAddEditForm = ({
                   }}
                 />
 
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="User name"
                   label="User name"
-                  value={formik.values.username}
-                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.username && Boolean(formik.errors.username)
+                  }
+                  helperText={formik.touched.username && formik.errors.username}
                   name="username"
                   sx={{
                     mb: 2,
                   }}
                 />
 
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="Phone"
                   label="Phone"
-                  value={formik.values.phone}
-                  onChange={formik.handleChange}
                   name="phone"
+                  error={formik.touched.phone && Boolean(formik.errors.phone)}
+                  helperText={formik.touched.phone && formik.errors.phone}
                   sx={{
                     mb: 2,
                   }}
                 />
 
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="E-mail"
                   label="E-mail"
                   name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
                   error={formik.touched.email && Boolean(formik.errors.email)}
                   helperText={formik.touched.email && formik.errors.email}
                   sx={{
@@ -117,14 +119,17 @@ export const UserAddEditForm = ({
                   }}
                 />
 
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="Website"
                   label="Website"
-                  value={formik.values.website}
-                  onChange={formik.handleChange}
                   name="website"
+                  error={
+                    formik.touched.website && Boolean(formik.errors.website)
+                  }
+                  helperText={formik.touched.website && formik.errors.website}
                   sx={{
                     mb: 2,
                   }}
@@ -133,50 +138,62 @@ export const UserAddEditForm = ({
               <Box component="div">
                 <h3>Address information</h3>
 
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="Street"
                   label="Street"
-                  value={formik.values.address?.street}
-                  onChange={formik.handleChange}
                   name="address.street"
+                  error={
+                    formik.touched.address?.street &&
+                    Boolean(formik.errors.address?.street)
+                  }
+                  helperText={
+                    formik.touched.address?.street &&
+                    formik.errors.address?.street
+                  }
                   sx={{
                     mb: 2,
                   }}
                 />
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="Suite"
                   label="Suite"
-                  value={formik.values.address?.suite}
-                  onChange={formik.handleChange}
                   name="address.suite"
                   sx={{
                     mb: 2,
                   }}
                 />
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="City"
                   label="City"
-                  value={formik.values.address?.city}
-                  onChange={formik.handleChange}
                   name="address.city"
+                  error={
+                    formik.touched.address?.city &&
+                    Boolean(formik.errors.address?.city)
+                  }
+                  helperText={
+                    formik.touched.address?.city &&
+                    formik.errors.address?.city
+                  }
                 />
               </Box>
               <Box component="div">
                 <h3>Company information</h3>
 
-                <TextField
+                <Field
+                  as={TextField}
                   id="outlined-controlled"
                   size="small"
                   placeholder="Company name"
                   label="Company name"
-                  value={formik.values.company?.name}
-                  onChange={formik.handleChange}
                   name="company.name"
                   sx={{
                     mb: 2,
